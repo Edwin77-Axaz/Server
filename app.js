@@ -14,7 +14,7 @@ import cors from "cors";
 
 
 const corsOptions = {
-    origin: ["http://192.168.0.22:8081", "http://localhost:8081", "exp://192.168.0.22:8081"],
+    origin: ["http://192.168.0.22:8081", "http://localhost:8081", "exp://192.168.0.22:8081", "https://azrael.onrender.com"],
     methods: ["POST", "GET"],
     credentials: true 
  };
@@ -24,6 +24,13 @@ const app = express();
 
 app.use(express.json());
 app.use(cors(corsOptions));
+
+
+
+// Ruta principal
+app.get("/", (req, res) => {
+    res.send("¡Hola Mundo!");
+});
 
 app.get("/todos/:id", async (req, res) => {
     const todos = await getTodoByID(req.params.id);
@@ -71,6 +78,9 @@ app.post("/todos", async (req, res) =>{
     res.status(201).send(todos);
 
 });
+
+
+
 
 app.listen(3000, () => {
     console.log("Server running on port 3000")
